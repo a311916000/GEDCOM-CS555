@@ -1,14 +1,16 @@
 def readGEDCOM(file):
     ln = 1
     GEDCOM = open(file)
+    data = open("data.txt", "w+")
     for line in GEDCOM.readlines():
-        print("--> "+line)
-        parse(ln, line)    
+        data.write("-->" + line + "\n")
+        parse(ln, line, data)    
         ln += 1
-
+        
+    data.close()
     return 
     
-def parse(ln, line):
+def parse(ln, line, datafile):
 
     p = ""
     level = 0;
@@ -54,6 +56,6 @@ def parse(ln, line):
         arguments = p
     else:
         arguments = tail
-    print("<-- "+str(level) +"|" + tag + "|" + valid + "|" + arguments)
+    datafile.write("<-- "+str(level) +"|" + tag + "|" + valid + "|" + arguments+"\n")
     return
               
